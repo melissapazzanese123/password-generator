@@ -88,18 +88,75 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+
+//This function will give the person all the prompts needed for them to choose from as to what characteres they 
 // Function to prompt user for password options
+
 function getPasswordOptions() {
-
+//variable to store password length from user input
+let length = parseInt(
+  prompt ("How many characteres would you like to have in your password?")
+  )
+  
+  if(isNaN(length) === true){
+  alert("Password length must be provided as number");
+  return;
+}
+if(length < 10) {
+  alert("Password length must contain at least 10 characteres");
+  return;
 }
 
+if(length > 64) {
+  alert("password length must contain a maximum of 65 characteres")
+  return;
+}
+
+let hasSpecialCharacters = confirm ( "Click ok to confirm you want special characters") 
+
+let hasNumbericCharacters = confirm ("Click ok to confirm including numeric characters")
+
+let hasLowerCasedCharacters = confirm ("Click ok to confirm including lowercase characters ")
+
+let hasUpperCasedCharacters = confirm ("Click ok to confirm including uppercase characters ")
+
+
+if (hasLowerCasedCharacters === false &&
+  hasUpperCasedCharacters === false &&
+  hasSpecialCharacters=== false && 
+  asNumbericCharacters === false) {
+    alert ("Must selcet at least one character type")
+    return;
+  }
+
+let passwordOptions = {
+  length: length, 
+  hasSpecialCharacters: hasSpecialCharacters,
+  hasUpperCasedCharacters: hasUpperCasedCharacters,
+  hasLowerCasedCharacters: hasLowerCasedCharacters,
+  numericCharacters: hasNumbericCharacters,
+}
+
+console.log(passwordOptions); 
+
+}
 // Function for getting a random element from an array
-function getRandom(arr) {
+// this function will go through all sorts of random combinations of numbers in the variables above 
 
+function getRandom(arr) {
+  let randomIndex = Math.floor(Math.random() * arr.length)
+  let randomElement = arr[randomIndex]
+
+  return randomElement
 }
+
+
 
 // Function to generate password with user input
+// This function will choose a comibnation of all the ones it went through on the step above - a final combination of numbers
+
 function generatePassword() {
+  let options = getPasswordOptions(); 
 
 }
 
@@ -107,6 +164,7 @@ function generatePassword() {
 var generateBtn = document.querySelector('#generate');
 
 // Write password to the #password input
+// this fubction will tell the computer to write down the choosen combo of numbers 
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector('#password');
